@@ -1,0 +1,14 @@
+<h3 style="text-align:center">test2.component.html</h3>
+<p *ngFor="let item of list">{{item}}</p>
+
+<div [ngClass]="my_css_design">Hello I am css design of test2.component.css sent from {{hi}} </div>
+<div>{{func}}</div>
+
+<button (click)="fireEvent()">Send Event</button>
+
+
+<h3>{{errorMsg}}</h3>
+<p *ngFor="let emp of empArr">{{emp.name}}</p>
+
+
+<hr>

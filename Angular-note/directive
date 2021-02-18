@@ -1,0 +1,70 @@
+import { Directive, TemplateRef, ViewContainerRef, Input } from '@angular/core';
+
+@Directive({
+  selector: '[appTesting]'
+})
+
+export class TestingDirective {
+
+	constructor(private tempRef: TemplateRef<any>, private vcRef : ViewContainerRef) { }
+
+  @Input() set appTesting(con : boolean){
+    if(!con)     	  this.vcRef.createEmbeddedView(this.tempRef);
+    else		      this.vcRef.clear();
+  }
+
+}
+
+
+<h3 class="d-inline" *appTesting="bool">Hello Software Engineer</h3>
+
+//-	-	-	-	-	-	-	-	-	Another	Directive	-	-	-	-	-	-	-	-
+
+import { Directive, HostListener, HostBinding, ElementRef, Renderer, Input } from '@angular/core';
+
+@Directive( {  selector: '[appMakeround]'	} )
+
+export class MakeroundDirective {
+
+  @HostListener('mouseenter') mymousein(){
+    // this.borderRadius = '50%';
+    this.borderRadius = this.maxRadius;
+  }
+
+  @HostListener('mouseleave') mymouseout(){
+    this.borderRadius = this.minRadius
+  }
+
+// ('style.width')  css style property=> background-color, color, font-size, height  etc.
+@HostBinding('style.border-radius') get myradius(){
+  return this.borderRadius;
+}
+
+@Input() minRadius = '0%';
+@Input() maxRadius; 
+
+  // borderRadius = '20%';
+  borderRadius : any;
+
+  constructor(private elementRef : ElementRef, private renderer : Renderer) {
+    // this.elementRef.nativeElement.style.backgroundColor = 'red';
+    this.renderer.setElementStyle(this.elementRef.nativeElement, 'background-color', 'maroon')
+   }
+
+}
+
+  private elementRef : ElementRef;
+  constructor( elementRef : ElementRef) {
+    this.elementRef = elementRef;
+   }				
+				(OR)
+    constructor(private elementRef : ElementRef) {	}   // typescript
+
+
+<div class="mycenter" appMakeround [minRadius]=" '20%' " [maxRadius]='"50%"'>    <!-- style="border-radius:25%;" -->
+  <h1 [ngClass]="{whiteCol:true}">Hello Myanmar</h1>
+  <p [class.whiteCol]="true">We are developer</p>
+</div>
+
+
+

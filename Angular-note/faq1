@@ -1,0 +1,56 @@
+
+//hero.service.ts
+import { Observable, of } from 'rxjs';
+
+	getHeroes(): Hero[] {  		return HEROES;	}	  //return "Hello, " + this.title
+
+  getHeroes(): Observable<Hero[]> {
+    this.messageService.add('HeroService: fetched heroes');
+    return of(HEROES);
+  }
+
+  getHero(id: number): Observable<Hero> {
+    this.messageService.add(` fetched hero id=${id} `);			// `  is to retrieve variable id like   ${id}
+    return of(		HEROES.find(hero => hero.id === id)	);			// .find() is obj array method, finding with integer
+  }
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+
+//dashboard.ts
+
+  ngOnInit() {
+    this.getHeroes();
+  }
+
+  getHeroes(): void {
+    this.heroService.getHeroes()
+      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+  }
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+
+
+
+.subscribe(data => this.heroes = data )
+.subscribe(data => this.heroes = data.slice(1,5) );
+.subscribe(data => this.heroes = data ,	error => this.errorMsg = error);
+.subscribe(	  (data:any) =>{		}	,	error => {	 }		)
+
+.subscribe( 	data =>
+						{	
+							if(data!=null) 		this.heroes=data.slice(1,5)	
+							else						alert('hi')
+						})
+
+
+.pipe(
+	tap( data =>  this.log(filename, data) ,
+			 error => this.logError(filename,error)
+	)
+);
+
+*ngFor="let hero of heroes" (click)="onSelect(hero) 
+	
+onSelect(hero : Hero) : void {
+}
+*ngIf="hero"
+
+

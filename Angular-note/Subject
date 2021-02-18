@@ -1,0 +1,19 @@
+//service -	-	-	-	-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+  user = new BehaviorSubject<string>(null);
+  cast = this.user.asObservable();
+
+editUser(newUser) {    this.user.next(newUser);  	}
+
+//component -	-	-	-	-
+  ngOnInit() {    
+    this.usersService.cast.subscribe(user=> this.user = user);  
+  }
+
+  editTheUser(name){
+    this.usersService.editUser(name);
+  }
+
+
+

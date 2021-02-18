@@ -1,0 +1,39 @@
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	app.module.ts-	-	-	-	-	-	-	-	-	-	-	-	-
+import { HttpClientModule } from '@angular/common/http';
+imports: [HttpClientModule ]
+
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	employee.ts-	-	-	-	-	-	-	-	-	-	-	-	-
+export interface IEmployee{    id: number,    name: string,    job:string	}
+
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	service.ts-	-	-	-	-	-	-	-	-	-	-	-	-
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {IEmployee} from '../employee';
+// import { Observable, throwError as observableThrowError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+
+private emp_url : string = '/assets/data/employees.json';
+
+  constructor(private http: HttpClient) { }
+
+  getEmployees(): Observable<IEmployee[]>{
+    return this.http.get<IEmployee[]>(this.emp_url)
+      .pipe(
+        catchError(this.errHandler)
+      );
+  }
+
+  errHandler(error : HttpErrorResponse){
+    // return observableThrowError(  error.message || "Server Error")
+    return throwError(  error.message || "Server Error")
+  }
+
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	test2.component.ts	-	-	-	-	-	-	-	-	-	-	-	-	-
+  ngOnInit() {
+    // this.empArr = this.empServ.getEmployees()
+    this.empServ.getEmployees()
+      .subscribe(data => this.empArr = data,
+                 error => this.errorMsg = error);
+
+  }

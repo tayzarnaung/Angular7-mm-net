@@ -1,0 +1,6 @@
+<input type="text" #input placeholder="Service Test">
+<button (click)="addData(input.value)">Add Data</button>
+
+<div *ngFor="let data of dataArr">
+  <div class="alert alert-info">{{data}}</div>
+</div>

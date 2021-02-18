@@ -1,0 +1,295 @@
+For Angular 7,
+
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_10.x | sudo  bash -
+curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm -v
+node -v
+node
+		console.log('hi')
+node node_test.js(from nodejs.org/en/about)
+
+
+sudo npm install -g @angular/cli
+sudo npm unistall -g @angular/cli
+
+
+npm cache verify
+ng --version (or) ng -v
+ng update
+ng update @angular/cli
+
+
+sudo apt install mongodb
+ sudo service mongodb start
+
+mongo
+show dbs;
+use testdb;
+db;
+db.mycol.insert({name:'Tay Zar', job:'Developer', age:29})
+show collections
+
+
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	Creating Workplace	-	-	-	-	-	-	-	-	-	-	-	-	-
+
+ng new angularPJ 
+ng new angularPJ  --routing --style=scss --prefix wc
+cd angularPJ
+ng serve --open --port 1500
+	or
+ng serve
+
+//-	-	-	-	-	-	-	Integration Bootstrap	-	-	-	-	-	-	-
+npm install bootstrap font-awesome 
+npm i popper.js  --save
+npm i jquery --save
+
+Next, open angular.json file and add bootstrap file path to the styles section. Like,
+"styles": [
+  	"src/styles.css",
+  	"node_modules/bootstrap/dist/css/bootstrap.min.css",
+	"node_modules/font-awesome/css/font-awesome.css"
+],
+  "scripts": [
+			  "src/assets/Bootstrap4_JS/jquery-3.2.1.slim.min.js",
+              "src/assets/Bootstrap4_JS/popper.min.js",
+              "src/assets/Bootstrap4_JS/bootstrap.min.js"
+    ]
+"scripts": [
+     "node_modules/jquery/dist/jquery.js",
+     "node_modules/popper.js/dist/umd/popper.min.js",
+     "node_modules/bootstrap/dist/js/bootstrap.min.js"
+]
+
+
+//-	-	-	-	-	-	-	Integration Bootstrap powered by Angular	-	-	-	-	-	-	-
+npm install ngx-bootstrap font-awesome (OR)
+ng add ngx-bootstrap
+@import "~bootstrap/dist/css/bootstrap.css";  
+@import"~font-awesome/css/font-awesome.css";
+
+   "styles": [  
+   "../node_modules/bootstrap/dist/css/bootstrap.min.css",  
+	"node_modules/font-awesome/css/font-awesome.css",
+   "styles.css"  
+   ],
+
+rm -r node_modules
+npm install
+npm install typescript@">=3.1.1 <3.2.0" 
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	ng g	-	-	-	-	-	-	-	-	-	-	-	-	-
+ng generate component Name
+
+ng g c  folderName/Name --skipTests (or) --spec=false
+ng g cl className  --type=model		//<-- cl or class
+ng g s  serviceName		//<-- s or service
+ng g d dierctiveName		// <-- d or directive
+ng g m moduleName		// <-- m or module
+ng g g guardName			// <-- g or guard
+ng g c --flat -is -it Name (OR)
+ng g c Name --flat -is -it
+
+
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	module     	-	-	-	-	-	-	-	-	-	-	-	-
+ng g module app-routing --flat --module=app
+
+--module=app tells the CLI to register it in the imports array of the AppModule.
+
+import { AppRoutingModule } from './app-routing.module';
+imports:[
+AppRoutingModule
+]												//app.module.ts
+
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	service     	-	-	-	-	-	-	-	-	-	-	-	-
+ng g s myservice
+
+import {MyserviceService} from "./sysgen/myservice.service";		
+Write "providers: [MyserviceService]" 													// app.module.ts
+	(OR)
+@Injectable(	{providedIn: 'root'}		)		
+
+import { MyserviceService} from './sysgen/myservice.service'
+constructor(private serv : MyserviceService) { } 									// recpective .ts
+
+
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	guard     	-	-	-	-	-	-	-	-	-	-	-	-
+ng g g about
+import {AboutGuard} from "./about.guard";		//app.module.ts
+Write "providers: [AboutGuard]" 													// app.module.ts
+	(OR)
+@Injectable(	{providedIn: 'root'}		)		
+
+import { AboutGuard} from './about.guard'
+constructor(private guard : AboutGuard) { } 									// recpective .ts
+
+
+//-	-	-	-	-	-	-	-	-	3 types of selector		-	-	-	-	-	-	-	-
+selector: 'app-test'						|		selector: '.app-test'									| 		selector:'[app-test]'
+<app-test></app-test>				|		<div class="app-test"></div>					| 		<div app-test></div>
+
+
+
+//-	-	-	-	-	-	-	-	-	*ngIf   	-	-	-	-	-	-	-	-
+
+*ngIf="a==null"	(or)*ngIf="!a"	 			*ngIf="selectedImage"(or) *ngIf="selectedImage !=null"
+
+<p *ngIf="true">This is true.</p>
+<p *ngIf="true; else tempNew">This is true.</p>
+<ng-template #tempNew>
+	<h1>This is false.</h1>
+</ng-template>
+
+<div *ngIf="!bool; then thenBlock; else elseBlock;"></div>
+
+<ng-template #thenBlock>
+  		<h2>Code evolution {{!bool+ " condition"}}</h2>
+</ng-template>
+<ng-template #elseBlock>
+  		<h2>Hidden  {{bool+ " condition"}}</h2>
+</ng-template>
+
+
+//-	-	-	-	-	-	-	-	-	  *ngFor		-	-	-	-	-	-	-	-
+*ngFor="let data of dataArr"			*ngFor="let item of items; let i=index"		*ngFor="let item of items; index as i"
+
+*ngFor="let item of list;  first as f;  index as i;  let l=last"
+*ngFor="let item of list; odd as odd; let even = even"
+
+for(let i of values) to get values
+for(let i in values) to get index
+
+
+  <li *ngFor="let hero of heroes" (click)="onSelect(hero)" [class.myselected]="hero === selectedHero">
+    	 {{hero.name}}
+  </li>
+
+ .myselected {
+    background-color: olivedrab
+    color: white;
+  }
+ li.myselected:hover {
+    background-color: navy
+  }
+
+
+//-	-	-	-	-	-	-	-	-	[ngSwitch]	-	-	-	-	-	-	-	-
+public value = "blue" or "10" or 10;		//typescript
+ <div [ngSwitch]="value">
+  	<p *ngSwitchCase="10">Value is 10</p>
+  	<p *ngSwitchCase=" 'blue' ">Value is Blue color</p>
+  	<p *ngSwitchDefault>Default Value</p>
+</div>
+
+//-	-	-	-	-	-	-	-	-	Template reference variable	-	-	-	-	-	-	-	-
+<input type="text" #input1 [disabled]="false">
+<input type="number" #input2 bind-disabled="true"> 
+<button (click)="addTwoNum(+input1.value, +input2.value)">Add</button>
+ // JavaScript (+) operator converts the string to a number
+<button (click)="logSMS(#input1)">Log</button>
+
+logSMS(event){ console.log(event)	}
+
+
+  ngOnInit() {
+    this.getMethod();
+  }
+  getMethod(): void {		alert("I am property or method")   }
+
+
+//-	-	-	-	-	-	-	-	-	Component Interaction (or) Input / Output	Decorator 	-	-	-	-	-	-	-
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+
+<div *ngFor="let image of images" (click)="setSelectedImage(image)">
+	<app-image [myimage]="image"></app-image>	//image-list.component.html
+</div>
+
+ @Input() myimage : Image;									//image.component.ts
+<img [src]="myimage.thumbnail" alt="">		//image.component.html
+
+
+
+//	-	-	-	-	-	-
+@Output() sendImage = new EventEmitter<Image>();
+			
+setSelectedImage(image : Image){  
+   this.sendImage.emit(image); 
+}											//image-list.component.ts
+
+
+<app-image-list (sendImage)="setImage($event)"></app-image-list>
+											//gallery.component.html
+
+  selectedImage : Image;
+  setImage(image : Image){
+    this.selectedImage = image;
+  }											//gallery.component.ts
+
+//	-	-	-	-	-	-
+<app-image-detail [getSelectedImage]="selectedImage" > </app-image-detail>
+											//gallery.component.html
+
+
+@Input() getSelectedImage: Image;				//image_detail.component.ts
+
+
+<div class="container" *ngIf="getSelectedImage">  
+	<img [src]="getSelectedImage.thumbnail" alt="">
+</div>										//image_detail.component.html
+//	-	-	-	-	-	-
+
+
+//-	-	-	-	-	-	-	-	-	Input / Output	-	-	-	-	-	-	-	-
+<app-hero-detail [myhero]="selectedHero"></app-hero-detail> 	//heroes.html
+
+  @Input() myhero: Hero;		//hero-detail.ts
+
+<div *ngIf="myhero">
+	myhero.name
+</div>
+
+
+
+//	-	-	-	-	-	-	-	-	-	Online study	-	-	-	-	-	-	-	-
+ public title = 'Online study';										//app.component.ts
+<app-test [parentData]="title"></app-test>			//app.component.html
+
+
+//	-	-	-	-	-	-	-	-	-	Test.component	-	-	-	-	-	-	-	-
+ @Input('parentData') private title : String;		
+
+ messageClasses = {    "text-success" : !this.hasError,    "text-danger"  : this.hasError,    "text-special" : this.isSpecial  }
+ greetUser(){     return "Hello " + this.title   }			
+ list = ['hi' , 'hey', 'hello']; 
+ output;																									//test.component.ts
+
+{{"Welcome, " + title}}				{{output}}										//test.component.html
+<app-test2 [my_css]="messageClasses" [hi]=" 'hello string' " [func]="greetUser()" [list]="list"
+(childEvent)="output = $event"></app-test2>
+
+
+//	-	-	-	-	-	-	-	-	-	Test2.component	-	-	-	-	-	-	-	-
+.text-success{    color: green;      }
+.text-danger {    color: red;        }
+.text-special{    font-style: italic;}					//test2.component.css
+
+  @Input('my_css') my_css_design;
+  @Input() hi;    @Input() func;		@Input() private list;	
+  @Output() private childEvent = new EventEmitter();	
+
+  fireEvent(){
+    this.childEvent.emit('test2 component emits message to test1 component')
+  }																														//test2.component.ts
+
+<div [ngClass]="my_css_design">Hello I am css design of test2.component.css sent from {{hi}} </div>
+<div>{{func}}</div>													  								
+<p *ngFor="let item of list">{{item}}</p>
+<button (click)="fireEvent()">Send Event</button>					//test2.component.html
+
+//	-	-	-	-	-	-	-	-	-	Dependency Injection(DI)	-	-	-	-	-	-	-	-
+var oldEngine = new Engine(oldparameter);
+var oldTires     = new Tires(oldparameter);
+var oldCar		 = new Car(oldEngine, oldTires);
+
+

@@ -1,0 +1,113 @@
+//-	-	-	-	-	-	-	-	-	Two way binding (app.module.ts)		-	-	-	-	-	-	-	-
+import { FormsModule } from '@angular/forms'; 
+imports: [    FormsModule		]
+
+ newitem = '72coder';
+<input [(ngModel)]="newitem"  type="text">
+<input [(ngModel)]="selectedHeroObj.name">
+
+ <form action="" #userForm="ngForm">
+	 {{ userForm.value | json}}
+	<input type="text" name="name" ngModel> 
+</form>
+
+ <input type="text"  name="name" [ngModel]="userModel.name">	//1 way binding
+ <input type="text"  name="name" [(ngModel)]="userModel.name">
+
+
+//-	-	-	-	-	-	-	-	-	Template Driven Form	-	-	-	-	-	-	-	-
+ngModel Class	=>	Property
+ng-untouched	=		untouched
+ng-touched			= 		touched
+ng-pristine			=		pristine	
+ng-dirty				=		dirty
+ng-valid				=		valid
+ng-invalid			=		invalid
+
+<input  #name    name="name"  ngModel>
+// name attribute must be set  in ngModel.
+
+<input   #name name="name" [(ngModel)]="userModel.name">
+
+{{name.className}}
+
+<input #name="ngModel" name="name" ngModel>
+
+<input #name="ngModel"  [(ngModel)]="userModel.name"
+[class.is-invalid]="name.invalid && name.touched"  name="name">
+
+{{name.valid}} {{name.pristine}}		//returns true or false
+
+ pattern="^\d{10}$"  //must be exactly ten digits
+
+<form action="" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" novalidate *ngIf="!submitted">
+<div ngModelGroup="address"></div>
+ <input name="name" [(ngModel)]="userModel.name" #uName="ngModel">
+
+//-	-	-	-	-	-	-	-	-	ReactiveFormsModule	-	-	-	-	-	-	-	-
+
+import {ReactiveFormsModule} from '@angular/forms';
+imports: [
+    ReactiveFormsModule
+]
+
+
+//-	-	-	-	-	-	-	-	-	FormGroup		-	-	-	-	-	-	-	-  
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+
+ngOnInint() : void {
+	this.myform = new FormGroup({
+			uname : new FormControl('',Validators.compose([
+						Validators.required,
+						Validators.minLength(5),
+						Validators.pattern('[\\w\\-\\@\\s/]+') 				] )			//<-- w=any word ,	s=space accepted
+			),
+			
+			pword: new FormControl('', this.mycustomValidator),
+			lang:     new FormControl(''),
+ 			hi1: new FormControl('', Validators.required),
+  			hi2: new FormControl('', [Validators.required] )
+			address: new FormGroup({ 			})
+	});
+}
+
+  mycustomValidator(my_value) {
+    		if (my_value.value.length <= 3)       return { 'pword': false };    
+  }
+
+  submitData = function (data) {
+    console.log(data);
+  }
+
+{{myform.value | json}}
+<form action="" [formGroup]="myform" (ngSubmit)="submitData(myform.value)">
+		formControlName="uname"		"pword"		"lang"
+ <div formGroupName="address"></div>
+		<button [disabled]="!myform.valid">Submit</button>
+</form>
+
+<input type="text" name="binary" formControlName="binary"  
+(ngModelChange)="binaryChange(newVal = $event)">
+
+
+//-	-	-	-	-	-	-	-	-	FormBuilder		-	-	-	-	-	-	-	- 
+import { forbiddenNameValidator} from 'src/app/shared/user-name.validator';
+ 
+  constructor(private fb: FormBuilder){}
+ get userName() {    return this.registrationForm.get('userName');  }
+
+  registrationForm = this.fb.group({
+    userName: ['', [Validators.required, Validators.minLength(3), forbiddenNameValidatror ] ],
+    password:['', Validator.required],
+    confirmPassword:[''],
+    address: this.fb.group({
+      city: [''],
+      state: '',
+      postalCode: ['']
+    })
+  })
+
+
+tempAddressService.form.get('ward').errors?.required
+tempAddressService.form.controls['ward'].errors?.minlength
+

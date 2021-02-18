@@ -1,0 +1,44 @@
+[
+    {
+        "id": "1",
+        "title": "Angular Animation",
+        "desc": "Teaching about Angular",
+        "bigimg": "index1.jpeg",
+        "thumbnail": "index1.jpeg"
+    },
+    {
+        "id": "2",
+        "title": "Angular Waifer",
+        "desc": "Brighter myanmar description",
+        "bigimg": "index2.jpeg",
+        "thumbnail": "index2.jpeg"
+    },
+    {
+        "id": "3",
+        "title": "Angular Self-study",
+        "desc": "Learning  about Angular",
+        "bigimg": "index3.jpeg",
+        "thumbnail": "index3.jpeg"
+    },
+    {
+        "id": "4",
+        "title": "Hello World",
+        "desc": "Hello World description",
+        "bigimg": "index4.jpeg",
+        "thumbnail": "index4.jpeg"
+    },
+    {
+        "id": "5",
+        "title": "Angular Pj",
+        "desc": "Testing Angular description",
+        "bigimg": "index5.jpeg",
+        "thumbnail": "index5.jpeg"
+    },
+    {
+        "id": "6",
+        "title": "Nga Tay",
+        "desc": "Nga Tay is so strong",
+        "bigimg": "index6.jpeg",
+        "thumbnail": "index6.jpeg"
+    }
+]

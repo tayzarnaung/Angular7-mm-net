@@ -1,0 +1,81 @@
+//-	-	-	-	-	-	-	-	-	Property binding	 [disabled] or bind-disabled    -	-	-	-	-	-	-	-
+ public title = 'Online study';	my_id ="test ID"			
+  LogMessage(event){
+    	 console.log(event)
+  }													//typescript 
+
+{{"Welcome, " + title}}			{{title.length}}			{{title.toUpperCase()}}	{{title | lowercase}}
+
+<input type="text" value="Nga Tay" id="{{my_id}}" bind-disabled="bool">
+<input type="text" value="Nga Tay" [id]="my_id" [disabled]="false" #myInput>
+<button (click)="LogMessage(myInput)">Log</button>
+<button (click)="LogMessage(myInput.value)">Log</button>
+
+
+//-	-	-	-	-	-	-	-	-	Event binding	-	-	-	-	-	-	-	-
+ greet;			
+ onClick(my_event){
+   		 console.log(my_event)
+    	this.greet = my_event.type
+  }																			//typescript 
+<button (click)="onClick($event)">Greet</button>{{greet}}
+<button (click)=" myStr = 'Welcome Nga Tay'  ">Greet</button>{{myStr}}
+
+
+
+//-	-	-	-	-	-	-	-	-	Class binding	-	-	-	-	-	-	-	-
+.text-success{    color: green;			}
+.text-danger{    color: red;					}
+.text-special {    font-style: italic;		}													//css file
+
+
+//-	-	-	-	-	-	-	-	-	Class binding	-	-	-	-	-	-	-	-
+ public isSpecial = true;  hasError = true;  title="Angular"
+
+messageClasses = {   "text-success" : !this.hasError,   "text-danger"  : this.hasError,   "text-special" : this.isSpecial }
+
+successClass =  "text-success"; 
+
+greetUser(){    return "Hello " + this.title  }																//typescript 
+
+<h2  [class]="successClass">{{greetUser()}}</h2>
+<h2  [class.text-danger]="hasError">{{greetUser()}}</h2>
+
+<h2  [ngClass]="messageClasses">Multiple Class Binding</h2>
+<h2 [ngClass]="{'text-success': true, 'text-danger' : false, 'text-special' : true}">{{ greetUser() }}</h2>
+
+[ngClass]="{'text-special' : !isSpecial}"
+[ngClass]="{'first': true, 'second': true, 'third': false}"
+[ngClass]="{'class1 class2 class3' : true}"
+
+
+//-	-	-	-	-	-	-	-	-	[ngClass]	-	-	-	-	-	-	-	-
+.redColor{	color:red;	}	//css
+myStr : string= "String interpolation"; 	bol =false;  redClass="redColor";//typescript
+
+
+<input type="text"   [class.redColor]="true">
+ [class.redColor] = "!bol"		[class]="redClass"
+
+<input type="text" [value]="myStr" [ngClass]="{redColor: !bol}">		//[value]=" 'I am string' "
+
+<button [disabled]=bol (click)="myToggle()">Change Color</button>
+
+
+//-	-	-	-	-	-	-	-	-	Style binding	-	-	-	-	-	-	-	-
+ titleStyles = {
+   color          : "blue",
+   backgroundColor: "gray",
+   fontStyle      : "italic"
+ }
+ highlightColor = "orange";					//typescript 
+
+<h2 [style.color]='  "orange"  '>Single Style Binding</h2>
+<h2 [style.color]="highlightColor">Single Style Binding 2</h2>
+<h2 [style.fontStyle]="   'italic'   "> Single Style Binding 3</h2>
+<h2 [style.backgroundColor]="hasError ? 'red' : 'green' ">Single Style Binding 3</h2>
+
+<h2 [ngStyle]="titleStyles">Multiple Style Binding</h2>
+<h2 [ngStyle]="{ 'color':'blue', 'backgroundColor':'gray' , 'fontStyle':'italic' }">Multiple Style Binding 2</h2>
+
+

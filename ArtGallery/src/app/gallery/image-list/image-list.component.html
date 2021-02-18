@@ -1,0 +1,15 @@
+<div class="container my-5">
+  <div class="row">
+
+    <div class="col-md-4 mb-3" *ngFor="let image of images" (click)="setSelectedImage(image)">
+      <div class="card">
+     
+        <!-- <img src="assets/imgs/index{{image.id}}.jpeg" alt="" class="img-fluid"> -->
+        <!-- <img src="{{image.thumbnail}}" alt="" class="img-fluid"> -->
+        <app-image [myimage]="image"></app-image>       
+      </div>
+    </div>
+   
+
+  </div>
+</div>

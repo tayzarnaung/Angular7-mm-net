@@ -1,0 +1,73 @@
+
+//-	-	-	-	-	-	-	-	-	Pipes	-	-	-	-	-	-	-	-  
+date = new Date();	//typescript
+{{date}}    {{date | date}}
+ {{date | date : 'shortDate'}} 	{{date | date : 'shortTime'}}		'mediumDate/Time' 'fullDate/Time'
+
+
+items = ['PHP', 'Angular', "Nodejs"];
+this.items.push(this.newitem);  ('Hi');
+this.items.splice(index, 1);  // 1 is amount to delete
+
+  obj = {
+    name: "MgMg",
+    bol: true
+  };				//typescript
+
+{{obj.name.toUpperCase()}}		{{obj.name | uppercase}}  {{obj.name | lowercase}}		{{obj.name | titlecase}}	{{obj | json}}
+{{obj.name | slice:1}} //output   gMg	
+{{title | slice:1:3}}		 //output    gM(start index 1 & ends before index 3
+
+
+{{0.754 | percent}} 
+{{ 25.5 | currency}}    {{25.5 | currency:'GBP'}}	'EUR'
+
+<h2>{{5.678 | number:'1.2-3'}}</h2>
+<h2>{{5.678 | number:'3.4-5'}}</h2>
+<h2>{{5.678 | number:'3.1-2'}}</h2>
+
+//-	-	-	-	-	-	-	-	-	Custom Pipes	-	-	-	-	-	-	-	-  
+SortPipe.ts
+import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+    name: 'sort'
+})
+
+export class SortPipe implements PipeTransform{
+    transform(values: any[], type: string){
+        if(type === 'asc'){
+            return values.sort();
+        }
+        else if(type === 'desc'){
+            return values.sort().reverse();
+        }
+    }
+}
+
+alphas = ['One', 'Two', "Three", "Four"];
+{{alphas | sort: 'asc' }}  {{alphas | sort: 'desc' }}
+
+AddPipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+    name: 'wcadd'
+})
+
+export class AddPipe implements PipeTransform {
+    nums = 0;
+    transform(values: number[]) {
+        // for(let i of values){
+        //     this.nums = this.nums - i;    
+        // }
+        for(let i in values){
+            this.nums = this.nums + values[i];    
+        }
+        return this.nums;
+    }
+}
+
+
+  digits = [4, 2, 4, 5, 7, 8];			//	.ts
+ <p>{{digits | wcadd}}</p>		// .html

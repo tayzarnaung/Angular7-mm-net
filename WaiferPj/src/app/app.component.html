@@ -1,0 +1,97 @@
+<div id="container">
+    <div class="col-md-6 offset-md-3 tabled-bordered my-5">
+        <h1 class="text-center bg-info">Brighter Myanmar</h1>
+        <div class="input-group">
+            <input [(ngModel)]="newitem" type="text" class="from-control" style="line-height:30px">
+            <span class="input-group-addon" style="cursor:pointer;" (click)="addItem()">Add</span>
+        </div>
+        <ul class="list-group">
+            <li class="listgroup-item" style="list-style-type:none" *ngFor="let item of items;let i=index">
+                <span>Index {{i+1}}: {{item}}</span>
+                <span class="badge badge-primary float-right" style="cursor:pointer" (click)="removeItem(i)">X</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="offset-md-1">
+    {{date}} <br>
+    {{date | date}} <br>
+    {{date | date : 'shortDate'}} <br>
+    {{date | date : 'fullDate'}}
+
+    <p><input type="text" disabled></p>
+
+    <h1 *ngIf="!obj.bol; else tempOne">{{obj.name}}</h1>
+    <ng-template #tempOne>
+        <h1>This is false.</h1>
+    </ng-template>
+
+    <p>{{obj.name | uppercase}}</p>
+    <p>{{obj.name | lowercase}}</p>
+
+    <p>{{digits | wcadd}}</p>
+    <p>{{alphas | sort: 'asc' }}</p>
+    <p>{{alphas | sort: 'desc' }}</p>
+</div>
+
+<router-outlet></router-outlet>
+<br>
+<a routerLink="naviRouter">Navi</a>&nbsp;
+<a routerLink="homeRouter">Home</a>&nbsp;
+<a routerLink="aboutRouter">About</a>&nbsp;<br>
+
+
+
+<hr>
+<app-testone></app-testone>
+<app-testtwo></app-testtwo>
+
+<div class="container my-5">
+    <form action="" class="form col-md-6 offset-md-3" [formGroup]="myform" (ngSubmit)="submitData(myform.value)">
+        <div class="input-group">
+            <span>Username</span>
+            <input type="text" name="myusername" class="form-control" formControlName="uname">
+        </div>
+        <div class="input-group">
+            <span>Password</span>
+            <input type="password" name="mypassword" class="form-control" formControlName="pword">
+        </div>
+        <div class="input-group">
+            <span>Language</span>
+            <select name="language" id="" class="form-control" formControlName="lang">
+                <option value="{{lan}}" *ngFor="let lan of languages"> {{lan}} </option>
+            </select>
+        </div>
+        <p></p>
+        <button [disabled]="!myform.valid" class="btn btn-secondary text-white float-right">Submit</button>
+    </form>
+</div>
+
+<div class="container m-5">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="text-danger text-center mb-5">Base converter</h1>
+        <form action="" class="form" [formGroup]="baseConverter">
+            <div class="form-group form-inline">
+                <label for="bin" class="col-md-2">Binary</label>
+                <input type="text" name="binary" formControlName="binary" class="form-control col-md-10" (ngModelChange)="binaryChange( $event)">
+            </div>
+            <div class="form-group form-inline">
+                <label for="bin" class="col-md-2">Decimal</label>
+                <input type="text" name="decimal" formControlName="decimal" class="form-control col-md-10" (ngModelChange)="decimalChange(newVal = $event)">
+            </div>
+            <div class="form-group form-inline">
+                <label for="bin" class="col-md-2">Octal</label>
+                <input type="text" name="octal" formControlName="octal" class="form-control col-md-10">
+            </div>
+            <div class="form-group form-inline">
+                <label for="bin" class="col-md-2">Hexa</label>
+                <input type="text" name="hexa" formControlName="hexa" class="form-control col-md-10">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- <app-navi></app-navi> <app-home></app-home> -->
+

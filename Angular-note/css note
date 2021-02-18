@@ -1,0 +1,35 @@
+//-	-	-	-	-	-	-	-	-	Pseudo Class	-	-	-	-	-	-	-	-
+:last-of-type	:first-child
+:hover 	:active	:visited	:link	:focus
+
+a.example:hover
+
+//-	-	-	-	-	-	-	-	-	Pseudo Elements	-	-	-	-	-	-	-	-
+:first-letter	:first-line		:before		:after
+
+p:first-line {text-transform:uppercase}
+h1:before { content: "HI" }
+//-	-	-	-	-	-	-	-	-	Attribute-	-	-	-	-	-	-	-
+div#container p{}
+div.container > p {}
+
+//-	-	-	-	-	-	-	-	-	Attribute-	-	-	-	-	-	-	-
+input[type="text"]	{ font-size:2em;   }
+
+h1[title] { color:olive;}		h1[title="hello"] { color:maroon;}
+
+span[hello="Cleveland"][goodbye="Columbus"] { color: blue; }
+
+
+<a class="col-1-4"></a>
+[class *= "col-"]:last-of-type		{	float:left;		}
+
+[class^="col-"], [class*=" col-"] {
+  border-color: red;
+}
+
+
+
+
+
+

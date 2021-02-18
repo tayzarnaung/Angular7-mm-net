@@ -1,0 +1,78 @@
+<div class="container-fluid mt-5">
+  <h2>Register Form</h2>
+
+  {{registrationForm.value | json}} <br>
+  {{registrationForm.errors | json}}
+  {{registrationForm.valid}}
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <div class="fomr-group">
+      <label for="">Username</label>
+      <input formControlName="userName" class="form-control" [class.is-invalid]="userName.invalid && userName.touched">
+      
+      <div *ngIf="this.registrationForm.get('userName').errors &&
+      userName.invalid &&  userName.touched">
+        <span *ngIf="userName.errors.required" class="text-danger">
+          It is required
+        </span>
+      </div>
+
+    </div>
+
+    <div class="fomr-group">
+      <label for="">Password</label>
+      <input formControlName="password" type="password" class="form-control" required>
+
+        <span *ngIf="this.registrationForm.get('password').invalid &&
+         getPassword.touched" class="text-danger">
+          It is required
+        </span>
+    </div>
+
+    <div class="fomr-group">
+      <label for="">Confirm Password</label>
+      <input [class.is-invalid]="registrationForm.errors?.missMatch" formControlName="confirmPassword" type="password"
+        class="form-control">
+      <small class="text-danger" *ngIf="registrationForm.errors?.missMatch">Password did not match.</small>
+    </div>
+
+    <div formGroupName="info">
+      <div class="fomr-group">
+        <label for="">HI</label>
+        <input formControlName="hi" type="text" class="form-control">
+      </div>
+      <div class="fomr-group">
+        <label for="">Hi1</label>
+        <input formControlName="hi1" type="text" class="form-control">
+      </div>
+    </div>
+
+
+    <div formGroupName="address">
+
+      <div class="fomr-group">
+        <label for="">City</label>
+        <input formControlName="city" type="text" class="form-control">
+      </div>
+
+      <div class="fomr-group">
+        <label for="">State</label>
+        <input formControlName="state" type="text" class="form-control">
+      </div>
+
+      <div class="fomr-group">
+        <label for="">Postal Code</label>
+        <input formControlName="postalCode" type="text" class="form-control">
+      </div>
+    </div>
+
+
+
+
+    <button type="submit" [disabled]="!registrationForm.valid" [class.btn-danger]="registrationForm.invalid" class="btn btn-primary">Register</button>
+    <button (click)="loadApiData()" class="btn btn-secondary ml-2">Load API </button>
+
+  </form>
+
+
+</div>

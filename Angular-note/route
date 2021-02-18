@@ -1,0 +1,155 @@
+//-	-	-	-	-	-	-	-	-	-	-	-	-	-	module     	-	-	-	-	-	-	-	-	-	-	-	-
+ng g module app-routing --flat --module=app
+
+--module=app tells the CLI to register it in the imports array of the AppModule.
+
+import { AppRoutingModule } from './app-routing.module';
+imports:[
+AppRoutingModule
+]			
+
+
+//-	-	-	-	-	-	-	-	-	Routing	#1-	-	-	-	-	-	-	-  
+import {RouterModule} from "@angular/router";		//app-routing.module.ts
+
+@NgModule({
+imports: [    
+    RouterModule.forRoot( [
+      {        path: 'naviRouter',        component: NaviComponent	       },
+      {        path: "homeRouter",   component:HomeComponent      }
+    ] )
+]
+exports: [ RouterModule ]
+})
+
+<a routerLink="naviRouter">Navi</a>&nbsp;
+<router-outlet></router-outlet>								//html file
+
+
+//-	-	-	-	-	-	-	-	-	Routing	#2	-	-	-	-	-	-	-	-  
+import { RouterModule, Routes } from '@angular/router';	//app-routing.module.ts
+
+const routes : Routes = [
+	//{path:'', component: DashboardComponent },
+	{ path: '', redirectTo:  '/dashboard', pathMatch: 'full' },
+
+    { path: 'detail/:id', component: HeroDetailComponent },
+    { path: 'heroes', component: HeroesComponent }
+];
+
+@NgModule({
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
+})
+
+
+<a routerLink="heroes">Hero</a>&nbsp;
+
+<a [routerLink] = "['/detail', hero.id]" [queryParams]="{'name':'Mg Mg', 'age':'21'}">Hi</a>
+
+<a routerLink = "detail/{{hero.id}}"  [queryParams]="{'name':'Mg Mg', 'age':'21'}" fragment="section2">Hi</a>
+
+<router-outlet></router-outlet>
+
+
+//-	-	-	-	-	-	-	-	-	Router  .navigate([" "]) -	-	-	-	-	-	-	-  
+import { Router} from '@angular/router'	//app-routing.module.ts
+
+constructor(private router : Router) {		 }
+this.router.navigate( ["heroes"] )
+ this.router.navigate( ["detail", 3] )
+
+this.router.navigate(
+		["post", 3] , { queryParams:{'name':"Ag Ag", 'age': '23'} 	} 
+);
+
+this.router.navigate(	["post", 3] , 
+{	queryParams:{'name':"Ag Ag", 'age': '23'} , fragment:'section3'	}	
+);
+
+
+<a routerLink="about"  routerLinkActive="active_css"
+	[preserveQueryParams]="true" [preserveFragment]="true">About</a>  
+
+<a [routerLink]="['post',1]" [queryParams]="{'name':'Mg Mg', 'age':'21'}">Post</a>
+
+ <a routerLink = "post/1" [queryParams]="{'name':'Mg Mg', 'age':'21'}" fragment="section2" routerLinkActive="active_css">Post</a>
+
+.active_css{    background-color:coral;		}
+
+const routes: Routes = [
+  		// {path: '', component:HomeComponent},
+  		// {path:'a' , redirectTo:'/home', pathMatch:'prefix'},
+  		{path:'', redirectTo:'/home', pathMatch: 'full'},
+  		{path: 'home', component:HomeComponent},
+  		{path:'about', component: AboutComponent, canActivate:[AboutGuard]},
+  		{path:'post/:id', component : PostComponent,   
+	 			children: [
+      					{path:'', component:PostDetailComponent},
+      					{path:'postdetail', component:PostDetailComponent},
+      					{path:'editpost', component:EditpostComponent}
+    			]
+ 	 	},
+ 	   {path:'**', component:PageNotFoundComponent}
+];
+
+export const routingComponents = [  HomeComponent, AboutComponent, PostComponent,
+				   PostDetailComponent, 	EditpostComponent]
+
+import { AppRoutingModule, routingComponents } from './app-routing.module';
+
+
+//post.component.html
+<div id="section2" style="height:700px;width:100%;background:green;">
+      <h2>Section Two</h2>
+</div>
+
+
+//-	-	-	-	-	-	-	-	-	Optional Route Parameter	-	-	-	-	-	-	-	-  
+this.router.navigate(['/departments', {my_id: selectedId, test:"optionalRouteParameter"} ])
+
+//-	-	-	-	-	-	-	-	-	Relative navigation	-	-	-	-	-	-	-	-  
+ {path: 'departments', component: DepartmentListComponent},
+ {path: 'department/:deptId', component:DepartmentDetailComponent}
+
+this.router.navigate([id] , {relativeTo:this.activatedRoute})
+this.router.navigate([ '../', nextId ] , {relativeTo:this.activatedRoute})
+this.router.navigate(['../', nextId, {hi:"hello"}] , {relativeTo:this.activatedRoute})
+this.router.navigate([ '../', {my_id: selectedId, test:"optionalRouteParameter"} ] ,  {relativeTo:this.activatedRoute} )
+
+
+
+//-	-	-	-	-	-	-	-	-	ActivatedRoute	-	-	-	-	-	-	-	-  
+import { ActivatedRoute } from '@angular/router';
+
+  constructor(private activatedRoute:ActivatedRoute) {     
+    //  const id = +this.activatedRoute.snapshot.paramMap.get('id'); 
+				//(OR)
+	//let id = parseInt( this.activatedRoute.snapshot.paramMap.get('id')  );
+    // JavaScript (+) operator converts the string to a number
+    // alert(id)
+
+	//this.activatedRoute.paramMap.subscribe(  (params : ParamMap) =>{
+	//		this.id = parseInt(params.get("id") );
+	//	} );
+
+    // this.id = this.activatedRoute.snapshot.params["id"]
+    this.activatedRoute.params.subscribe(	  		(my_param: any) => {
+        		this.id = my_param["id"]
+      		},error => {      }
+    );  
+    
+    this.activatedRoute.queryParams.subscribe(		// to retrieve [queryParams]="{'name':'Mg Mg', 'age':'21'}"
+      my_query => {
+        this.name = my_query['name'],
+        this.age  = my_query[ 'age' ]
+      }
+    );
+  }
+
+
+//-	-	-	-	-	-	-	-	-	Location	-	-	-	-	-	-	-	-  
+import { Location } from '@angular/common';
+constructor(private location: Location) {}
+
+method() : void{ this.location.back(); }

@@ -1,0 +1,11 @@
+.whiteCol{
+    color: white; text-align: center;
+     line-height: inherit;
+     /* line-height: 250px; */
+}
+
+.mycenter{
+    width: 250px;height: 250px; background:blueviolet;
+    position: absolute;
+    top:0; left: 0; right: 0; bottom: 0; margin: auto;
+}

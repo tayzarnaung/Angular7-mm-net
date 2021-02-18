@@ -1,0 +1,102 @@
+
+<div class="container-fluid mt-5">
+  <h1>Bootcamp Enrollment Form</h1>
+
+  <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" novalidate *ngIf="!submitted">
+
+    {{ userForm.value | json}}  <hr>
+
+    {{userModel | json}}  <hr>
+
+    {{userForm.form.valid}}
+
+    <div class="form-group">
+      <label for="">Name</label>  {{_name.invalid}} {{_name.touched}}
+      <!-- <input type="text" class="form-control" name="name" ngModel> -->
+      <!-- <input type="text" class="form-control" #name name="name" [(ngModel)]="userModel.name" required> -->
+      
+      <input type="text" [class.is-invalid]="_name.invalid && _name.touched " class="form-control"
+       #_name="ngModel" name="name" [(ngModel)]="userModel.name" required>
+
+      <small class="text-danger" [class.d-none]="_name.valid || _name.untouched">Name is required</small>
+    </div>
+
+    <!-- {{_name.className}}      -->
+    
+
+    <div class="form-group">
+      <label for="">Email</label>
+      <input type="email" class="form-control" name="email" [(ngModel)]="userModel.email">
+    </div>
+
+    <div class="form-group">
+      <label for="">Phone</label> {{phone.invalid}} {{phone.touched}}
+
+      <input type="my-tel" #phone="ngModel" pattern="^\d{10}$" required
+      [class.is-invalid]="phone.invalid && phone.touched" class="form-control" name="phone" 
+      [(ngModel)]="userModel.phone">
+
+      <!-- <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Phone# is required and  must be ten digits</small> -->
+    
+      <div *ngIf="phone.errors && phone.invalid && phone.touched">
+        <small class="text-danger" *ngIf="phone.errors.required">Phone# is required</small>
+        <small class="text-danger" *ngIf="phone.errors.pattern">Phone# must be 10 digits</small>
+      </div>
+
+    </div>
+    
+
+    <div class="form-group">
+      <select (blur)="validateTopic(topic.value)" (change)="validateTopic(topic.value)" 
+      name="topic" id="" class="custom-select" [class.is-invalid]="topicHasError && topic.touched"
+      #topic="ngModel" [(ngModel)]="userModel.topic" >
+        <option  value="default" selected >I am interest in</option>
+        <option  *ngFor="let topic of topics">{{topic}}</option>
+        <!-- <option value="{{topic}}" *ngFor="let topic of topics">{{topic}}</option> -->
+      </select>
+
+      <small class="text-danger" [class.d-none]="!topicHasError || topic.untouched">Please choose topic</small>
+    </div>
+
+    <div class="mb-3">
+      <label for="">Time preference</label> 
+      <div class="form-check">
+        <input type="radio" class="form-check-input" name="timePreference" value="morning" [(ngModel)]="userModel.timePreference"  id="morning">
+        <label for="morning" class="forme-check-label">Morning(9AM - 12PM)</label>        
+      </div>
+      <div class="form-check">
+          <input type="radio" class="form-check-input" name="timePreference" value="evening" [(ngModel)]="userModel.timePreference" id="evening">
+          <label for="evening" class="forme-check-label">Evening(5PM - 8PM)</label>        
+      </div>
+    </div>
+
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" id="offer" name="subscribe" [(ngModel)]="userModel.subscribe">
+      <label for="offer" class="form-check-label">Send me promotional offers</label>
+    </div>
+
+    <!-- <div ngModelGroup="address">
+      <div class="form-group">
+        <label for="">Street</label>
+        <input type="text" class="form-control" name="street" ngModel>
+      </div>
+      <div class="form-group">
+          <label for="">City</label>
+          <input type="text" class="form-control" name="city" ngModel>
+      </div>
+      <div class="form-group">
+          <label for="">State</label>
+          <input type="text" class="form-control" name="state" ngModel>
+      </div>
+      <div class="form-group">
+          <label for="">Postal</label>
+          <input type="text" class="form-control" name="street" ngModel>
+      </div>
+    </div> -->
+
+    <button [disabled]="userForm.form.invalid || topicHasError" [class.btn-danger]="userForm.form.invalid || topicHasError" class="btn btn-primary" type="submit">Submit form</button>
+
+  </form>
+</div>

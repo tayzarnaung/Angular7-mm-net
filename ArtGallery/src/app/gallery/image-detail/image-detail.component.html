@@ -1,0 +1,9 @@
+<div class="container" *ngIf="getSelectedImage;else tempNew">
+  <div class="col-md-8 offset-md-3">
+    <img [src]="getSelectedImage.bigimg" alt="">
+  </div>
+</div>
+
+<ng-template #tempNew>
+  <div style="text-align:center">  You haven't selected any image. </div>
+</ng-template>

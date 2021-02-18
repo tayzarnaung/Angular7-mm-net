@@ -1,0 +1,8 @@
+npm install material-design-icons
+@import '~material-design-icons/iconfont/material-icons.css';  //styles.css
+
+
+@import '~ngx-toastr/toastr.css';
+#toast-container > div {
+    opacity:1;
+}																		//styles.css

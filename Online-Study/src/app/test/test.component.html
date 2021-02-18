@@ -1,0 +1,72 @@
+<h3 style="text-align:center">test.component.html</h3>
+
+<!-- //-	-	-	-	-	-	-	-	-	Interpolation & Property binding	-	-	-	-	-	-	-	--->
+{{"Welcome, " + title | titlecase}}
+{{title.length}}
+
+<h2>{{title.toUpperCase()}}</h2>
+<p>{{title | slice:3}} , {{title | slice:3:5}}</p>
+ {{messageClasses | json}}
+<br>
+
+<input type="text" value="Nga Tay" id="{{my_id}}" bind-disabled="bool">
+<input type="text" value="Nga Tay" [id]="my_id" [disabled]="false" #myInput>
+<button (click)="LogMessage(myInput)">Log</button>
+<!-- <button (click)="LogMessage(myInput.value)">Log</button> -->
+
+
+<!-- //-	-	-	-	-	-	-	-	-	Interpolation & Class binding	-	-	-	-	-	-	-	- -->
+<h2 class="text-special" [class]="successClass">{{greetUser()}}</h2>
+<h2  [class.text-danger]="hasError">{{ greetUser() }}</h2>
+<h2  [ngClass]="messageClasses">{{greetUser()}}</h2>
+<!-- <h2 [ngClass]="{'text-success': true, 'text-danger' : false, 'text-special' : true}">{{greetUser()}}</h2> -->
+<hr width="50%">
+
+
+<!-- //-	-	-	-	-	-	-	-	-	Style binding	-	-	-	-	-	-	-	- -->
+<h2 [style.color]='"orange"'>Single Style Binding</h2>
+<h2 [style.color]="highlightColor">Single Style Binding 2</h2>
+<h2 [style.fontStyle]=" 'italic' ">Single Style Binding 3</h2>
+<h2 [style.backgroundColor]="hasError ? 'red' : 'green' ">Conditional Style Binding</h2>
+
+<h2 [ngStyle]="titleStyles">Multiple Style Binding</h2>
+<h2 [ngStyle]="{'color':'blue', 'backgroundColor':'gray' , 'fontStyle':'italic'}">Style Binding</h2>
+
+
+<!-- //-	-	-	-	-	-	-	-	-	Event binding	-	-	-	-	-	-	-	- -->
+<button (click)="onClick($event)">Greet</button>{{greet}}
+<button (click)="myStrrr = 'Welcome Nga Tay'">Greet</button>{{myStrrr}}
+
+
+<!-- //-	-	-	-	-	-	-	-	-	*ngIf Directive-	-	-	-	-	-	-	- -->
+<div *ngIf="!bool; then thenBlocks; else elseBlocks;"></div>
+
+<ng-template #thenBlocks>
+  <h2>Code evolution {{!bool+ " condition"}}</h2>
+</ng-template>
+<ng-template #elseBlocks>
+  <h2>Hidden  {{bool+ " condition"}}</h2>
+</ng-template>
+
+
+<!-- //-	-	-	-	-	-	-	-	-	*ngSwitch Directive-	-	-	-	-	-	-	- -->
+ <div [ngSwitch]="value">
+   <div *ngSwitchCase="10">10</div>
+   <div *ngSwitchCase=" 'blue' ">you picked blue</div>
+   <div *ngSwitchDefault>output2</div>
+ </div>
+ 
+
+<!-- //-	-	-	-	-	-	-	-	-	*ngFor Directive-	-	-	-	-	-	-	- -->
+
+<!-- first as f; let l = last -->
+<div *ngFor="let item of list; even as e; let i=index; let o=odd">
+ {{e}} => {{i}}=> {{item}} => {{o}}
+</div>
+
+<h3>{{output}}</h3>
+<hr>
+
+<app-test2 [my_css]="messageClasses" [hi]=" 'test.component.ts' " [func]="greetUser()" [list]="list"
+(childEvent)="output = $event">
+</app-test2> 

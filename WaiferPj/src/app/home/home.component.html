@@ -1,0 +1,17 @@
+<p>
+  home works!
+  <input type="text" #input1>
+  <input type="number" #input2>
+  <button (click)="addTwoNum(+input1.value, +input2.value)">Add</button>
+</p>
+
+
+<!-- <input type="text" value="{{myStr}}" [ngClass]="{redColor: !bol}"> -->
+<input type="text" [value]="myStr" [ngClass]="{redColor: !bol}">
+<button [disabled]=bol (click)="myToggle()">disable</button>
+
+<button [disabled]=false (click)="myToggle()">Change Color</button>
+<hr>
+
+ 
+<button (click)="show_data()">Show data</button>

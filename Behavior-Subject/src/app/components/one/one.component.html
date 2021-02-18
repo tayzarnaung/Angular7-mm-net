@@ -1,0 +1,8 @@
+<p>
+  one : {{user | json}}
+</p>
+<input type="text" [(ngModel)]="editUser.name" (keyup.enter)="editTheUser()"> 
+<button (click)="editTheUser()">Change</button>
+
+<!-- <input type="text" #name (keyup)="editUser.name = name.value"  (keyup.enter)="editTheUser(name.value)">
+<button (click)="editTheUser(name.value)">Change</button> -->

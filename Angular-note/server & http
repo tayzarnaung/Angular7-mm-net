@@ -1,0 +1,61 @@
+import { HttpClientModule } from '@angular/common/http'
+  imports: [    HttpClientModule  ]												//app.module.ts
+
+//-	-	-	-	-	-	-	-	-	-	-	-	Service	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { User } from './user';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EnrollmentService {
+
+  _url = "";
+  constructor(private http : HttpClient) { }
+
+  enroll(user : User){
+    return this.http.post<any>(this._url, user)
+  }
+}
+
+
+  <form #userForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+onSubmit(){
+  // console.info(this.userModel)
+  this._enrollmentService.enroll(this.userModel)
+    .subscribe(
+      data => console.log('Success', data),
+      error => console.error('Error', error)
+    )
+
+
+
+
+npm init --yes
+npm install -save express body-parser cors
+node server  // <--Run this after Server.js 
+
+//-	-	-	-	-	-	-	-	-	-	-	-	Server.js	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+
+const PORT = 3000;
+
+const app =express();
+
+app.use(bodyParser.json());
+app.use(cors());
+
+app.get('/', function(req, res){
+    res.send('Hello from server');
+})
+
+app.listen(PORT, function(){
+    console.log("server running on loacalhost:" + PORT);
+})
+
+
